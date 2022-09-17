@@ -1,0 +1,21 @@
+name: Solicitação de Acesso
+
+on:
+  issues:
+   - types: [ opened ]
+
+jobs:
+  check_issue:
+    runs-on: ubuntu-latest
+    name: 'Verificar informações da Issue'
+    steps:
+      - id: dados_issue
+        name: 'Dados da Issue'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.setOutput('Solicitante:', ${{ github.actor }});
+            var eventPayload = JSON.parse(${{ github.event }});
+
+            core.setOutput('Payload:', eventPayload);
+            
