@@ -14,8 +14,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            core.setOutput('Solicitante:', '${{ github.actor }}'');
-            var eventPayload = JSON.parse('${{ github.event }}'');
+            core.setOutput('Solicitante:', '${{ github.actor }}');
+            var eventPayload = JSON.parse('${{ github.event }}');
 
             core.setOutput('Payload:', eventPayload);
             
