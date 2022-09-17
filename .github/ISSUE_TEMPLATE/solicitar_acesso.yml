@@ -1,5 +1,5 @@
 name: Solicitar Acesso
-Description: Solicitar Acesso ao Repositório
+description: Solicitar Acesso ao Repositório
 title: "Gostaria de acesso ao repositório"
 labels: [ "senac-devops-na-pratica" ]
 assignees: 
