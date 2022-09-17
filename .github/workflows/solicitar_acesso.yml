@@ -15,7 +15,7 @@ jobs:
         with:
           script: |
             core.setOutput('Solicitante:', '${{ github.actor }}');
-            var eventPayload = JSON.parse('${{ github.event }}');
+            var eventPayload = JSON.parse(${{ github.event }});
 
             core.setOutput('Payload:', eventPayload);
             
