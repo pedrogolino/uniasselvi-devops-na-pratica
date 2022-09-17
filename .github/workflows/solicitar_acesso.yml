@@ -2,7 +2,7 @@ name: Solicitação de Acesso
 
 on:
   issues:
-   - types: [ opened ]
+   types: [ opened, edited ]
 
 jobs:
   check_issue:
