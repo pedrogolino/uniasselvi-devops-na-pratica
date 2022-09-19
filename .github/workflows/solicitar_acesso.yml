@@ -20,6 +20,15 @@ jobs:
             const body = String(eventPayload.issue.body);
             const senha = body.replace('### Senha\n\n', '');
 
+            const comentarioBody = 'Obrigado por abrir a issue, ' + user + '😃!';
+
+            const comentarioIssueResponse = await github.rest.issues.createComment({
+              owner: 'pedrogolino',
+              repo: 'senac-devops-na-pratica',
+              issue_number: issueNumber,
+              body: comentarioBody
+            });
+
             core.setCommandEcho(true);
             core.setOutput('USUARIO', user);
             core.setOutput('ISSUE', issueNumber);
@@ -38,12 +47,70 @@ jobs:
               console.log('Senha Incorreta');
               core.setOutput('ACESSO_OK', 'não');
             }
+      - id: incluir_usuario_org
+        if: steps.verificar_senha.outputs.ACESSO_OK == 'sim'
+        name: 'Incluir Usuário na Organização'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const user = '${{ github.actor }}';
+            const issueNumber = '${{ steps.dados_issue.outputs.ISSUE }}';
+
+            const userInfo = await github.rest.users.getByUsername({
+              username: user
+            });
+
+            const comentarioIssueResponse = await github.rest.issues.createComment({
+              owner: 'pedrogolino',
+              repo: 'senac-devops-na-pratica',
+              issue_number: issueNumber,
+              body: 'Incluindo seu usuário na Organização. Verifique o convite enviado no e-mail: ' + userInfo.email + '.'
+            });
+
+            const incluirUsuarioOrgResponse = await github.rest.orgs.setMembershipForUser({
+              org: 'pedrogolino',
+              username: user
+            });
       - id: incluir_usuario_time
         if: steps.verificar_senha.outputs.ACESSO_OK == 'sim'
         name: 'Incluir Usuário no Time'
         uses: actions/github-script@v6
         with:
           script: |
-            console.log('Seguindo');
+            const teamName = ${{ secrets.TEAM_NAME }};
+            const user = '${{ github.actor }}';
+            const issueNumber = '${{ steps.dados_issue.outputs.ISSUE }}';
 
-            
+            const comentarioIssueResponse = await github.rest.issues.createComment({
+              owner: 'pedrogolino',
+              repo: 'senac-devops-na-pratica',
+              issue_number: issueNumber,
+              body: 'Incluindo seu usuário no time senac-lab.'
+            });
+
+            const incluirUsuarioTimeResponse = await github.({
+              org: 'pedrogolino',
+              team_slug: teamName,
+              username: user,
+              role: 'member'
+            });
+      - id: sucesso
+        name: 'Sucesso'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issueNumber = '${{ steps.dados_issue.outputs.ISSUE }}';
+
+            const comentarioIssueResponse = await github.rest.issues.createComment({
+              owner: 'pedrogolino',
+              repo: 'senac-devops-na-pratica',
+              issue_number: issueNumber,
+              body: 'OnBoarding finalizado 🚀'
+            });
+
+            const updateIssueResponse = await github.rest.issue.update({
+              owner: 'pedrogolino',
+              repo: 'senac-devops-na-pratica',
+              issue_number: issueNumber,
+              state: 'closed'
+            });
