@@ -1,0 +1,11 @@
+name: '01 - Create Branch'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  collect_user_data:
+    runner: ubuntu-latest
+    name: 'Collect User Data'
+    steps:
+      - id: 'Get User Info'

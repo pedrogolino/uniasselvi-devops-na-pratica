@@ -101,7 +101,7 @@ jobs:
               body: 'Incluindo seu usuário no time senac-lab.'
             });
 
-            const incluirUsuarioTimeResponse = await github.({
+            const incluirUsuarioTimeResponse = await github.rest.teams.addOrUpdateMembershipForUserInOrg({
               org: 'pedrogolino',
               team_slug: teamName,
               username: user,
