@@ -1,0 +1,64 @@
+name: 'Get GitHub App Token'
+description: 'Get GitHub App Token'
+inputs:
+  app_id:
+    required: true
+    description: 'GitHub App ID'
+  instalation_id:
+    required: true
+    description: 'Installation ID'
+  github_app_private_key:
+    requires: true
+    description: 'GitHub App Private Key'
+outputs:
+  ACCESS_TOKEN:
+    description: 'Access Token'
+    value: '${{ steps.get_instalation_access_token.outputs.ACCESS_TOKEN }}'
+runs:
+  using: 'composite'
+  steps:
+    - id: setup_node
+      name: Setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - id: npm_install_jwt
+      name: 'Install NPM Package jsonwebtoken'
+      shell: bash
+      run: npm install jsonwebtoken
+    - id: create_pem_file
+      name: Create PEM file
+      shell: bash
+      run: |
+        echo "${{ inputs.github_app_private_key }}" >> privatekey.pem
+    - id: get_jwt_token
+      name: 'Get JWT Token'
+      uses: actions/github-script@v6
+      with: 
+        script: |
+          const jwt = require('jsonwebtoken');
+          const fs = require('fs');
+
+          const now = Math.floor(Date.now() / 1000);
+          const expDate = now + (5 * 60);
+          const payload = { iat: now, exp: expDate, iss: "${{ inputs.app_id }}" };
+          
+          const privateKey = fs.readFileSync('privatekey.pem');
+          const jwtToken = jwt.sign(payload, privateKey, { algorithm: 'RS256' });
+          
+          core.setOutput('jwt_token', jwtToken);
+    - id: remove_pem_file
+      name: Remove PEM file
+      shell: bash
+      run: |
+        rm -f privatekey.pem
+    - id: get_instalation_access_token
+      name: 'Get Installation Access Token'
+      shell: bash
+      run: |
+        URL="https://api.github.com/app/installations/${{ inputs.instalation_id }}/access_tokens"
+        curl -X POST -H 'Authorization: Bearer ${{ steps.get_jwt_token.outputs.jwt_token }}' -H 'Accept: application/vnd.github+json' -o 'payload.json' ${URL}
+        
+        access_token=$(jq -r '.token' ./payload.json)
+
+        echo "::set-output name=ACCESS_TOKEN::$access_token"

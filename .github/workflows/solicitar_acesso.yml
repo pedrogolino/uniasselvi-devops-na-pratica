@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Verificar informações da Issue'
     steps:
+      - id: checkout
+        name: 'Checkout'
+        uses: actions/checkout@v3
       - id: github_app_access_token
         name: 'GitHub App Access Token'
         uses: ./.github/actions/get_github_app_token
