@@ -14,7 +14,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const eventPayload = ${{ github.event }};
+            const eventPayload = context.payload;
             const issueNumber = eventPayload.number;
             const user = '${{ github.actor }}';
             const body = String(eventPayload.body);
