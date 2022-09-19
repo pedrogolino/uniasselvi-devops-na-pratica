@@ -9,10 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Verificar informações da Issue'
     steps:
+      - id: github_app_access_token
+        name: 'GitHub App Access Token'
+        uses: ./.github/actions/get_github_app_token
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          instalation_id: ${{ secrets.INSTALLATION_ID }}
+          github_app_private_key: ${{ secrets.PRIVATE_KEY }}
       - id: dados_issue
         name: 'Dados da Issue'
         uses: actions/github-script@v6
         with:
+          github-token: ${{ steps.github_app_access_token.outputs.ACCESS_TOKEN }}
           script: |
             const eventPayload = context.payload;
             const issueNumber = eventPayload.issue.number;
@@ -52,6 +60,7 @@ jobs:
         name: 'Incluir Usuário na Organização'
         uses: actions/github-script@v6
         with:
+          github-token: ${{ steps.github_app_access_token.outputs.ACCESS_TOKEN }}
           script: |
             const user = '${{ github.actor }}';
             const issueNumber = '${{ steps.dados_issue.outputs.ISSUE }}';
@@ -76,6 +85,7 @@ jobs:
         name: 'Incluir Usuário no Time'
         uses: actions/github-script@v6
         with:
+          github-token: ${{ steps.github_app_access_token.outputs.ACCESS_TOKEN }}
           script: |
             const teamName = ${{ secrets.TEAM_NAME }};
             const user = '${{ github.actor }}';
@@ -98,6 +108,7 @@ jobs:
         name: 'Sucesso'
         uses: actions/github-script@v6
         with:
+          github-token: ${{ steps.github_app_access_token.outputs.ACCESS_TOKEN }}
           script: |
             const issueNumber = '${{ steps.dados_issue.outputs.ISSUE }}';
 
