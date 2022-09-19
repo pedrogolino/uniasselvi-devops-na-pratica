@@ -14,9 +14,36 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            core.setCommandEcho(true);
-            core.setOutput('Solicitante:', '${{ github.actor }}');
-            var eventPayload = ${{ github.event }};
+            const eventPayload = ${{ github.event }};
+            const issueNumber = eventPayload.issue.number;
+            const user = '${{ github.actor }}';
+            const body = eventPayload.issue.body;
+            const senha = body.replace('### Senha\n\n', '');
 
-            core.setOutput('Payload:', JSON.stringify(eventPayload));
+            core.setCommandEcho(true);
+            core.setOutput('USUARIO', user);
+            core.setOutput('ISSUE', issueNumber);
+            core.setCommandEcho(false);
+            
+            core.setOutput('SENHA', senha);
+      - id: verificar_senha
+        name: 'Verificar Senha'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            if ('${{ steps.dados_issue.outputs.}}' == '${{ secrets.SENHA_SENAC }}' ) {
+              console.log('Acesso OK');
+              core.setOutput('ACESSO_OK', true);
+            } else { 
+              console.log('Senha Incorreta');
+              core.setOutput('ACESSO_OK', false);
+            }
+      - id: incluir_usuario_time
+        if: ${{ steps.verificar_senha.ACESSO_OK }}
+        name: 'Incluir Usuário no Time'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            console.log('Seguindo');
+
             
