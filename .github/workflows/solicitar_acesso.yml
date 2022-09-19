@@ -15,12 +15,10 @@ jobs:
         with:
           script: |
             const eventPayload = context.payload;
-            const issueNumber = eventPayload.number;
+            const issueNumber = eventPayload.issue.number;
             const user = '${{ github.actor }}';
-            const body = String(eventPayload.body);
+            const body = String(eventPayload.issue.body);
             const senha = body.replace('### Senha\n\n', '');
-
-            console.log(JSON.stringify(eventPayload));
 
             core.setCommandEcho(true);
             core.setOutput('USUARIO', user);
