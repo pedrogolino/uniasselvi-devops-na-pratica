@@ -20,6 +20,8 @@ jobs:
             const body = String(eventPayload.body);
             const senha = body.replace('### Senha\n\n', '');
 
+            console.log(JSON.stringify(${{ github.event }}));
+
             core.setCommandEcho(true);
             core.setOutput('USUARIO', user);
             core.setOutput('ISSUE', issueNumber);
