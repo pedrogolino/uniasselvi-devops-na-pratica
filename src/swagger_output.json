@@ -1,0 +1,29 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1",
+    "title": "Senac",
+    "description": "Senac"
+  },
+  "host": "localhost:80",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/cidades": {
+      "get": {
+        "tags": [
+          "Cidades"
+        ],
+        "description": "Endpoint para obter todas as cidades",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}
