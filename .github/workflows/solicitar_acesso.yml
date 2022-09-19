@@ -39,7 +39,7 @@ jobs:
               core.setOutput('ACESSO_OK', false);
             }
       - id: incluir_usuario_time
-        if: ${{ steps.verificar_senha.ACESSO_OK }}
+        if: steps.verificar_senha.ACESSO_OK == true
         name: 'Incluir Usuário no Time'
         uses: actions/github-script@v6
         with:
