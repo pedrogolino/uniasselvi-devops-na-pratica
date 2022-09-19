@@ -122,7 +122,7 @@ jobs:
               body: 'OnBoarding finalizado 🚀'
             });
 
-            const updateIssueResponse = await github.rest.issue.update({
+            const updateIssueResponse = await github.rest.issues.update({
               owner: 'pedrogolino',
               repo: 'senac-devops-na-pratica',
               issue_number: issueNumber,
