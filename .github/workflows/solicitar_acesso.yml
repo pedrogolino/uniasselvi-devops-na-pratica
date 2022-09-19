@@ -81,7 +81,7 @@ jobs:
 
             const incluirUsuarioOrgResponse = await github.rest.repos.addCollaborator({
               owner: 'pedrogolino',
-              repo: 'senac-devops-na-pratica'
+              repo: 'senac-devops-na-pratica',
               username: user
             });
       - id: incluir_usuario_time
