@@ -90,7 +90,7 @@ jobs:
         with:
           github-token: ${{ steps.github_app_access_token.outputs.ACCESS_TOKEN }}
           script: |
-            const teamName = ${{ secrets.TEAM_NAME }};
+            const teamName = '${{ secrets.TEAM_NAME }}';
             const user = '${{ github.actor }}';
             const issueNumber = '${{ steps.dados_issue.outputs.ISSUE }}';
 
