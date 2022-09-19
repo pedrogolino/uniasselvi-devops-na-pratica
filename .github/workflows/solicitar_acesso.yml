@@ -15,9 +15,9 @@ jobs:
         with:
           script: |
             const eventPayload = ${{ github.event }};
-            const issueNumber = eventPayload.issue.number;
+            const issueNumber = eventPayload.number;
             const user = '${{ github.actor }}';
-            const body = eventPayload.issue.body;
+            const body = eventPayload.body;
             const senha = body.replace('### Senha\n\n', '');
 
             core.setCommandEcho(true);
