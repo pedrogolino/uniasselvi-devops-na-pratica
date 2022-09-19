@@ -79,8 +79,9 @@ jobs:
               body: 'Incluindo seu usuário na Organização. Verifique o convite enviado no e-mail: ' + userInfo.email + '.'
             });
 
-            const incluirUsuarioOrgResponse = await github.rest.orgs.setMembershipForUser({
-              org: 'pedrogolino',
+            const incluirUsuarioOrgResponse = await github.rest.repos.addCollaborator({
+              owner: 'pedrogolino',
+              repo: 'senac-devops-na-pratica'
               username: user
             });
       - id: incluir_usuario_time
