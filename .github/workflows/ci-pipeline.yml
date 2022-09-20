@@ -3,8 +3,10 @@ name: 'CI Pipeline'
 on:
   workflow_dispatch:
   push:
-    branches-ignore:
-     - 'main'
+    paths-ignore:
+     - '.github/**'
+     - '*.md'
+     - 'docs/**'
 jobs:
   compilar_projeto:
     runs-on: ubuntu-latest
@@ -17,7 +19,7 @@ jobs:
           if [ '${{ github.event_name }}' == 'push' ]; then
             echo "::set-output name=REF::${{ github.ref }}"
           else
-            echo "::set-output name=REF::develop"
+            echo "::set-output name=REF::main"
           fi
       - id: checkout
         name: 'Checkout Repositório'
