@@ -57,3 +57,5 @@ jobs:
               ref: newReleaseBranch,
               sha: latestRef.data.object.sha
             });
+
+            console.log("Criado Branch: " + newReleaseBranch);
