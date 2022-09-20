@@ -14,6 +14,11 @@ __⚠️ ATENÇÃO ⚠️__
 
 > Os links abrem na mesma janela.
 
+### Referência
+ - [Actions](ACTIONS.md)
+ - [LAB](LAB.md)
+ - [WORKFLOWS](WORKFLOWS.md)
+
 ### Instruções
 #### Acesso
   - Acessar o repositório https://github.com/pedrogolino/senac-devops-na-pratica/
