@@ -43,3 +43,12 @@ jobs:
         run: |
           cd "${{ github.workspace }}/src"
           npm run lint
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:  
+          projectBaseDir: src
+          args: >
+            -Dsonar.branch.name=${{ github.ref }}

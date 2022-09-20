@@ -52,12 +52,12 @@ jobs:
               ref: 'heads/main'
             });
 
-            const newReleaseBranch = 'refs/heads/${{ inputs.grupo }}_${{ inputs.cor }}';
+            const newBranch = 'refs/heads/${{ inputs.grupo }}_${{ inputs.cor }}';
 
             const newRefResponse = await github.rest.git.createRef({ 
               owner: 'pedrogolino',
               repo: 'senac-devops-na-pratica',
-              ref: newReleaseBranch,
+              ref: newBranch,
               sha: latestRef.data.object.sha
             });
 
