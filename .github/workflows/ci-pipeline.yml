@@ -23,4 +23,6 @@ jobs:
       - id: instalar_pacotes
         name: 'Instalar Pacotes'
         shell: bash
-        run: npm install
+        run: |
+          cd src
+          npm install
