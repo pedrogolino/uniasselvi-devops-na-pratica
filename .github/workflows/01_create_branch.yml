@@ -7,7 +7,7 @@ on:
         required: true
         description: 'Grupo'
         type: choice
-        values:
+        options:
          - 'Einstein'
          - 'Tesla'
          - 'Newton'
@@ -16,7 +16,7 @@ on:
         required: true
         description: 'Nome da Cor'
         type: choice
-        values:
+        options:
          - 'Azul'
          - 'Verde'
          - 'Amarelo'
