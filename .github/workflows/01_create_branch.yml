@@ -2,10 +2,60 @@ name: '01 - Create Branch'
 
 on:
   workflow_dispatch:
+    inputs:
+      grupo:
+        required: true
+        description: 'Grupo'
+        type: choice
+        options:
+         - 'Einstein'
+         - 'Tesla'
+         - 'Newton'
+         - 'Freud'
+      cor:
+        required: true
+        description: 'Nome da Cor'
+        type: choice
+        options:
+         - 'Azul'
+         - 'Verde'
+         - 'Amarelo'
+         - 'Vermelho'
+         - 'Laranja'
 
 jobs:
   collect_user_data:
-    runner: ubuntu-latest
+    runs-on: ubuntu-latest
     name: 'Collect User Data'
     steps:
-      - id: 'Get User Info'
+      - id: github_app_access_token
+        name: 'GitHub App Access Token'
+        uses: pedrogolino/senac-devops-na-pratica/.github/actions/get_github_app_token@main
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          instalation_id: ${{ secrets.INSTALLATION_ID }}
+          github_app_private_key: ${{ secrets.PRIVATE_KEY }}
+      - id: create_branch
+        name: 'Create Development Branch'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ steps.github_app_access_token.outputs.ACCESS_TOKEN }}
+          script: |
+            const latestRef = await github.rest.git.getRef({
+              owner: 'pedrogolino',
+              repo: 'senac-devops-na-pratica',
+              ref: 'heads/main'
+            });
+
+            const usuario = '${{ github.actor }}'.substring(0, 3);
+
+            const newReleaseBranch = 'refs/heads/${{ inputs.grupo }}_${{ inputs.cor }}_' + usuario;
+
+            const newRefResponse = await github.rest.git.createRef({ 
+              owner: 'pedrogolino',
+              repo: 'senac-devops-na-pratica',
+              ref: newReleaseBranch,
+              sha: latestRef.data.object.sha
+            });
+
+            console.log("Criado Branch: " + newReleaseBranch);
