@@ -25,7 +25,7 @@ on:
 
 jobs:
   collect_user_data:
-    runner: ubuntu-latest
+    runs-on: ubuntu-latest
     name: 'Collect User Data'
     steps:
       - id: github_app_access_token
