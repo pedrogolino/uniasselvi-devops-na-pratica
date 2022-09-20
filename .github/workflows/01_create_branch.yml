@@ -12,6 +12,11 @@ on:
          - 'Tesla'
          - 'Newton'
          - 'Freud'
+         - 'Turing'
+         - 'Torvalds'
+         - 'Pascal'
+         - 'Hawking'
+
       cor:
         required: true
         description: 'Nome da Cor'
@@ -47,9 +52,7 @@ jobs:
               ref: 'heads/main'
             });
 
-            const usuario = '${{ github.actor }}'.substring(0, 3);
-
-            const newReleaseBranch = 'refs/heads/${{ inputs.grupo }}_${{ inputs.cor }}_' + usuario;
+            const newReleaseBranch = 'refs/heads/${{ inputs.grupo }}_${{ inputs.cor }}';
 
             const newRefResponse = await github.rest.git.createRef({ 
               owner: 'pedrogolino',
