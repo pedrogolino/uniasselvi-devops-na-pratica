@@ -1,0 +1,37 @@
+name: 'CI Pipeline'
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+     - 'main'
+jobs:
+  compilar_projeto:
+    runs-on: ubuntu-latest
+    name: 'Compilar Projeto'
+    steps:
+      - id: checkout_info
+        name: 'Get Checkout Info'
+        shell: bash
+        run: |
+          if [ '${{ github.event_name }}' == 'push' ]; then
+            echo "::set-output name=REF::${{ github.ref }}"
+          else
+            echo "::set-output name=REF::develop"
+          fi
+      - id: checkout
+        name: 'Checkout Repositório'
+        uses: actions/checkout@v3
+        with:
+          ref: '${{ steps checkout_info.outputs.REF }}'
+      - id: configurar_node
+        name: 'Configurar Node'
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - id: instalar_pacotes
+        name: 'Instalar Pacotes'
+        shell: bash
+        run: |
+          cd src
+          npm install
