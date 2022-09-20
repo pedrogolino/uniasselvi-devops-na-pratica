@@ -35,5 +35,11 @@ jobs:
         name: 'Instalar Pacotes'
         shell: bash
         run: |
-          cd src
+          cd "${{ github.workspace }}/src"
           npm install
+      - id: rodar_eslint
+        name: 'Rodar ESLint'
+        shell: bash
+        run: |
+          cd "${{ github.workspace }}/src"
+          npm run lint
