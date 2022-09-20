@@ -47,8 +47,6 @@ jobs:
               ref: 'heads/main'
             });
 
-            console.log(JSON.stringfy(latestRef));
-
             const usuario = '${{ github.actor }}'.substring(0, 3);
 
             const newReleaseBranch = 'refs/heads/${{ inputs.grupo }}_${{ inputs.cor }}_' + usuario;
