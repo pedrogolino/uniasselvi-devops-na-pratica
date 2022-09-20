@@ -44,7 +44,7 @@ jobs:
             const latestRef = await github.rest.git.getRef({
               owner: 'pedrogolino',
               repo: 'senac-devops-na-pratica',
-              ref: 'main'
+              ref: 'heads/main'
             });
 
             console.log(JSON.stringfy(latestRef));
