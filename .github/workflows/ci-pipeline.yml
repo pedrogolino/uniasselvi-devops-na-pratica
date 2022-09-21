@@ -52,3 +52,5 @@ jobs:
           projectBaseDir: src
           args: >
             -Dsonar.branch.name=${{ github.ref }}
+            -Dsonar.project.key='senac-devops-na-pratica'
+            -Dsonar.organization='pedrogolino'
