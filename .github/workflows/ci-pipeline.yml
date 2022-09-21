@@ -53,4 +53,4 @@ jobs:
           args: >
             -Dsonar.branch.name=${{ github.ref }}
             -Dsonar.projectKey=senac-devops-na-pratica
-            -Dsonar.organization='pedrogolino'
+            -Dsonar.organization=pedrogolino
