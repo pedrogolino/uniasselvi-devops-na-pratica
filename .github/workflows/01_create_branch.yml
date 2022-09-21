@@ -27,6 +27,7 @@ on:
          - 'Amarelo'
          - 'Vermelho'
          - 'Laranja'
+         - 'Preto'
 
 jobs:
   collect_user_data:
