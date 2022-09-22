@@ -1,1 +1,21 @@
 name: 'rodrigo_workflow'
+on:
+  workflow_dispatch:
+    inputs:
+      acao:
+        type: string
+        required: true
+        description: 'Ação'
+      valor:
+        type: string
+        required: true
+        description: 'Valor'
+
+jobs:
+  nome_job_1:
+    runs-on: ubuntu-latest
+    name: 'Nome Job 1'
+    steps:
+      - id: checkout
+        name: 'Checkout Repository'
+        uses: actions/checkout@v3
