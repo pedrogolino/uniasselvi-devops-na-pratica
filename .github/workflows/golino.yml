@@ -20,3 +20,20 @@ jobs:
       - id: checkout
         name: 'Checkout Repository'
         uses: actions/checkout@v3
+      - id: configurar_node
+        name: 'Configurar Node'
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - id: instalar_pacotes
+        name: 'Instalar Pacotes'
+        shell: bash
+        run: |
+          cd "${{ github.workspace }}/src"
+          npm install
+      - id: rodar_eslint
+        name: 'Rodar ESLint'
+        shell: bash
+        run: |
+          cd "${{ github.workspace }}/src"
+          npm run lint
