@@ -62,4 +62,4 @@ jobs:
               sha: latestRef.data.object.sha
             });
 
-            console.log("Criado Branch: " + newReleaseBranch);
+            console.log("Criado Branch: " + newBranch);
