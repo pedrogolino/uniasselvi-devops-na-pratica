@@ -16,7 +16,7 @@ Exemplo:
     name: 'Nome do Workflow'
 
     on:
-      workflows_dispatch:
+      workflow_dispatch:
         inputs:
           acao:
             type: string
