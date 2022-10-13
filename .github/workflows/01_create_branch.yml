@@ -36,7 +36,7 @@ jobs:
     steps:
       - id: github_app_access_token
         name: 'GitHub App Access Token'
-        uses: pedrogolino/senac-devops-na-pratica/.github/actions/get_github_app_token@main
+        uses: pedrogolino/uniasselvi-devops-na-pratica/.github/actions/get_github_app_token@main
         with:
           app_id: ${{ secrets.APP_ID }}
           instalation_id: ${{ secrets.INSTALLATION_ID }}
@@ -49,7 +49,7 @@ jobs:
           script: |
             const latestRef = await github.rest.git.getRef({
               owner: 'pedrogolino',
-              repo: 'senac-devops-na-pratica',
+              repo: 'uniasselvi-devops-na-pratica',
               ref: 'heads/main'
             });
 
@@ -57,7 +57,7 @@ jobs:
 
             const newRefResponse = await github.rest.git.createRef({ 
               owner: 'pedrogolino',
-              repo: 'senac-devops-na-pratica',
+              repo: 'uniasselvi-devops-na-pratica',
               ref: newBranch,
               sha: latestRef.data.object.sha
             });
