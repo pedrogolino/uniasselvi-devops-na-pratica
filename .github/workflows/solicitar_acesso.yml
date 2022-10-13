@@ -35,7 +35,7 @@ jobs:
 
             const comentarioIssueResponse = await github.rest.issues.createComment({
               owner: 'pedrogolino',
-              repo: 'senac-devops-na-pratica',
+              repo: 'uniasselvi-devops-na-pratica',
               issue_number: issueNumber,
               body: comentarioBody
             });
@@ -51,7 +51,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            if ('${{ steps.dados_issue.outputs.senha }}' == '${{ secrets.SENHA_SENAC }}' ) {
+            if ('${{ steps.dados_issue.outputs.senha }}' == '${{ secrets.SENHA_UNIASSELVI }}' ) {
               console.log('Acesso OK');
               core.setOutput('ACESSO_OK', 'sim');
             } else { 
@@ -74,14 +74,14 @@ jobs:
 
             const comentarioIssueResponse = await github.rest.issues.createComment({
               owner: 'pedrogolino',
-              repo: 'senac-devops-na-pratica',
+              repo: 'uniasselvi-devops-na-pratica',
               issue_number: issueNumber,
               body: 'Incluindo seu usuário na Organização. Verifique o convite enviado no e-mail: ' + userInfo.email + '.'
             });
 
             const incluirUsuarioOrgResponse = await github.rest.repos.addCollaborator({
               owner: 'pedrogolino',
-              repo: 'senac-devops-na-pratica',
+              repo: 'uniasselvi-devops-na-pratica',
               username: user
             });
       - id: incluir_usuario_time
@@ -97,9 +97,9 @@ jobs:
 
             const comentarioIssueResponse = await github.rest.issues.createComment({
               owner: 'pedrogolino',
-              repo: 'senac-devops-na-pratica',
+              repo: 'uniasselvi-devops-na-pratica',
               issue_number: issueNumber,
-              body: 'Incluindo seu usuário no time senac-lab.'
+              body: 'Incluindo seu usuário no time uniasselvi-devops-na-pratica.'
             });
 
             const incluirUsuarioTimeResponse = await github.rest.teams.addOrUpdateMembershipForUserInOrg({
@@ -118,14 +118,14 @@ jobs:
 
             const comentarioIssueResponse = await github.rest.issues.createComment({
               owner: 'pedrogolino',
-              repo: 'senac-devops-na-pratica',
+              repo: 'uniasselvi-devops-na-pratica',
               issue_number: issueNumber,
               body: 'OnBoarding finalizado 🚀'
             });
 
             const updateIssueResponse = await github.rest.issues.update({
               owner: 'pedrogolino',
-              repo: 'senac-devops-na-pratica',
+              repo: 'uniasselvi-devops-na-pratica',
               issue_number: issueNumber,
               state: 'closed'
             });
